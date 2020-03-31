@@ -54,7 +54,7 @@ public class Myapp {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=add(add(x1,x2),x3);
-                        str2=fenshutozhenfenshu(add(add(x1,x2),x3));
+                        str2=i+"."+fenshutozhenfenshu(add(add(x1,x2),x3));
                         bw1.write(str);
                         bw2.write(str2);
                         bw1.newLine();
@@ -70,7 +70,7 @@ public class Myapp {
                         String x3=tofenshu(c,f);
                         //str1=fenshutozhenfenshu(minus(add(x1,x2),x3));
                         str1=minus(add(x1,x2),x3);
-                        str2=fenshutozhenfenshu(minus(add(x1,x2),x3));
+                        str2=i+"."+fenshutozhenfenshu(minus(add(x1,x2),x3));
                         double panduan=getResult(str1);
                         if (panduan>=0){
                             bw1.write(str);
@@ -88,7 +88,7 @@ public class Myapp {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=add(x1,multiply(x2,x3));
-                        str2=fenshutozhenfenshu(add(x1,multiply(x2,x3)));
+                        str2=i+"."+fenshutozhenfenshu(add(x1,multiply(x2,x3)));
                         bw1.write(str);
                         bw2.write(str2);
                         bw1.newLine();
@@ -104,7 +104,7 @@ public class Myapp {
                         String x3=tofenshu(c,f);
                         if(c!=0) {
                             str1=add(x1, divide(x2, x3));
-                            str2 = fenshutozhenfenshu(add(x1, divide(x2, x3)));
+                            str2 = i+"."+fenshutozhenfenshu(add(x1, divide(x2, x3)));
                             bw1.write(str);
                             bw2.write(str2);
                             bw1.newLine();
@@ -122,7 +122,7 @@ public class Myapp {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=add(minus(x1,x2),x3);
-                        str2=fenshutozhenfenshu(add(minus(x1,x2),x3));
+                        str2=i+"."+fenshutozhenfenshu(add(minus(x1,x2),x3));
                         double panduan=getResult(str1);
                         if (panduan>=0){
                             bw1.write(str);
@@ -142,7 +142,7 @@ public class Myapp {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=minus(minus(x1,x2),x3);
-                        str2=fenshutozhenfenshu(minus(minus(x1,x2),x3));
+                        str2=i+"."+fenshutozhenfenshu(minus(minus(x1,x2),x3));
                         double panduan=getResult(str1);
                         if (panduan>=0){
                             bw1.write(str);
@@ -160,7 +160,7 @@ public class Myapp {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=minus(x1,multiply(x2,x3));
-                        str2=fenshutozhenfenshu(minus(x1,multiply(x2,x3)));
+                        str2=i+"."+fenshutozhenfenshu(minus(x1,multiply(x2,x3)));
                         double panduan=getResult(str1);
                         if (panduan>=0){
                             bw1.write(str);
@@ -180,7 +180,7 @@ public class Myapp {
                         String x3=tofenshu(c,f);
                         if (c!=0) {
                             str1=minus(x1,divide(x2,x3));
-                            str2=fenshutozhenfenshu(minus(x1,divide(x2,x3)));
+                            str2=i+"."+fenshutozhenfenshu(minus(x1,divide(x2,x3)));
                             double panduan = getResult(str1);
                             if (panduan >= 0) {
                                 bw1.write(str);
@@ -202,7 +202,7 @@ public class Myapp {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=add(multiply(x1,x2),x3);
-                        str2=fenshutozhenfenshu(add(multiply(x1,x2),x3));
+                        str2=i+"."+fenshutozhenfenshu(add(multiply(x1,x2),x3));
                         bw1.write(str);
                         bw2.write(str2);
                         bw1.newLine();
@@ -217,7 +217,7 @@ public class Myapp {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=minus(multiply(x1,x2),x3);
-                        str2=fenshutozhenfenshu(minus(multiply(x1,x2),x3));
+                        str2=i+"."+fenshutozhenfenshu(minus(multiply(x1,x2),x3));
                         double panduan=getResult(str1);
                         if (panduan>=0){
                             bw1.write(str);
@@ -236,7 +236,7 @@ public class Myapp {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=multiply(multiply(x1,x2),x3);
-                        str2=fenshutozhenfenshu(multiply(multiply(x1,x2),x3));
+                        str2=i+"."+fenshutozhenfenshu(multiply(multiply(x1,x2),x3));
                         bw1.write(str);
                         bw2.write(str2);
                         bw1.newLine();
@@ -252,7 +252,7 @@ public class Myapp {
                         String x3 = tofenshu(c, f);
                         if (c!=0) {
                             str1=divide(multiply(x1,x2),x3);
-                            str2=fenshutozhenfenshu(divide(multiply(x1,x2),x3));
+                            str2=i+"."+fenshutozhenfenshu(divide(multiply(x1,x2),x3));
                             bw1.write(str);
                             bw2.write(str2);
                             bw1.newLine();
@@ -271,7 +271,7 @@ public class Myapp {
                             String x2 = tofenshu(b, e);
                             String x3 = tofenshu(c, f);
                             str1=add(divide(x1,x2),x3);
-                            str2=fenshutozhenfenshu(add(divide(x1,x2),x3));
+                            str2=i+"."+fenshutozhenfenshu(add(divide(x1,x2),x3));
                             bw1.write(str);
                             bw2.write(str2);
                             bw1.newLine();
@@ -285,7 +285,7 @@ public class Myapp {
                             String x2 = tofenshu(b, e);
                             String x3 = tofenshu(c, f);
                             str1=minus(divide(x1,x2),x3);
-                            str2=fenshutozhenfenshu(minus(divide(x1,x2),x3));
+                            str2=i+"."+fenshutozhenfenshu(minus(divide(x1,x2),x3));
                             double panduan = getResult(str1);
                             if (panduan >= 0) {
                                 bw1.write(str);
@@ -303,7 +303,7 @@ public class Myapp {
                             String x2 = tofenshu(b, e);
                             String x3 = tofenshu(c, f);
                             str1=multiply(divide(x1,x2),x3);
-                            str2=fenshutozhenfenshu(multiply(divide(x1,x2),x3));
+                            str2=i+"."+fenshutozhenfenshu(multiply(divide(x1,x2),x3));
                             bw1.write(str);
                             bw2.write(str2);
                             bw1.newLine();
@@ -318,7 +318,7 @@ public class Myapp {
                             String x3 = tofenshu(c, f);
                             if (c!=0) {
                                 str1=divide(divide(x1,x2),x3);
-                                str2=fenshutozhenfenshu(divide(divide(x1,x2),x3));
+                                str2=i+"."+fenshutozhenfenshu(divide(divide(x1,x2),x3));
                                 bw1.write(str);
                                 bw2.write(str2);
                                 bw1.newLine();
