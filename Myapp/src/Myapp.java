@@ -1,9 +1,6 @@
 import javax.management.relation.RelationTypeNotFoundException;
 import javax.swing.text.InternationalFormatter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,287 +21,350 @@ public class Myapp {
 
     public static void GenerateQuestion (int range,int number) throws IOException {
 
-        File newFile=new File("Exercises.txt");
-        //System.out.println(newFile.exists());
-        newFile.createNewFile();
-        File newFile1=new File("Answers.txt");
-        FileWriter writer=null;
-        FileWriter writer1=null;
-        writer=new FileWriter(newFile);
-        writer1=new FileWriter(newFile1);
-        for (int i=1;i<=number;) {
-            int a = (int) (Math.random() * range);
-            int b = (int) (Math.random() * range);
-            int c = (int) (Math.random() * range);
-            int d = (int)(Math.random()*range)+1;
-            int e = (int)(Math.random()*range)+1;
-            int f = (int)(Math.random()*range)+1;
-            int fuhao1 = (int) (Math.random() * 4);
-            int fuhao2 = (int) (Math.random() * 4);
-            //int fuhao1=0;
-            //int fuhao2=3;
-            String str;
-            String str1;
-            /*String str3=minus("4/5","3/2");
-            System.out.println("str3:"+str3);
-            double d1=getResult(str3);
-            if (d1>=0){
-                System.out.println("OK");
+        File file1=new File("Exercise.txt");
+        File file2=new File("Answer.txt");
+        try {
+            if (!file1.exists()){
+                file1.createNewFile();
             }
-            else
-                System.out.println("Error");
-            */
-
-            if (fuhao1==0){
-                if (fuhao2==0){
-                    //str=i+"."+tozhenfenshu(a,d)+"+"+tozhenfenshu(b,e)+"+"+tozhenfenshu(c,f)+"=";
-                    str=i+". "+tofenshu(a,d)+" + "+tofenshu(b,e)+" + "+tofenshu(c,f)+" =";
-                    writer.write(str);
-                    String x1=tofenshu(a,d);
-                    String x2=tofenshu(b,e);
-                    String x3=tofenshu(c,f);
-                    str1=add(add(x1,x2),x3);
-                    System.out.println(str+" "+str1);
-                    //str1=fenshutozhenfenshu(add(add(x1,x2),x3));//化为真分数
-                    //System.out.println(str1);
-                    //writer1.write(str1);
-                    i++;
-                }
-                else if (fuhao2==1){
-                    //str=i+"."+tozhenfenshu(a,d)+"+"+tozhenfenshu(b,e)+"+"+tozhenfenshu(c,f)+"=";
-                    str=i+". "+tofenshu(a,d)+" + "+tofenshu(b,e)+" - "+tofenshu(c,f)+" =";
-                    String x1=tofenshu(a,d);
-                    String x2=tofenshu(b,e);
-                    String x3=tofenshu(c,f);
-                    //str1=fenshutozhenfenshu(minus(add(x1,x2),x3));
-                    String str2=add(x1,x2);
-                    //System.out.println(str2);
-                    str1=minus(str2,x3);
-                    //System.out.println(str1);
-                    double panduan=getResult(str1);
-                    if (panduan>=0){
-                        writer.write(str);
-                        writer1.write(str1);
-                        i++;
-                        System.out.println(str+" "+str1);
-                    }
-                }
-                else if (fuhao2==2){
-                    //str=i+"."+tozhenfenshu(a,d)+"+"+tozhenfenshu(b,e)+"*"+tozhenfenshu(c,f)+"=";
-                    str=i+". "+tofenshu(a,d)+" + "+tofenshu(b,e)+" * "+tofenshu(c,f)+" =";
-                    String x1=tofenshu(a,d);
-                    String x2=tofenshu(b,e);
-                    String x3=tofenshu(c,f);
-                    //str1=fenshutozhenfenshu(add(x1,multiply(x2,x3)));
-                    str1=add(x1,multiply(x2,x3));
-                    System.out.println(str+" "+str1);
-                    writer.write(str);
-                    writer1.write(str1);
-                    i++;
-                }
-                else if (fuhao2==3){
-                    //str=i+"."+tozhenfenshu(a,d)+"+"+tozhenfenshu(b,e)+"/"+tozhenfenshu(c,f)+"=";
-                    str=i+". " +tofenshu(a,d)+" + "+tofenshu(b,e)+" / "+tofenshu(c,f)+" =";
-                    String x1=tofenshu(a,d);
-                    String x2=tofenshu(b,e);
-                    String x3=tofenshu(c,f);
-                    if(c!=0) {
-
-                        //str1=fenshutozhenfenshu(add(x1,divide(x2,x3)));
-                        str1 = add(x1, divide(x2, x3));
-                        writer.write(str);
-                        writer1.write(str1);
-                        System.out.println(str+" "+str1);
-                        i++;
-                    }
-                }
+            if (!file2.exists()){
+                file2.createNewFile();
             }
-            else if (fuhao1==1){
-                if (fuhao2==0){
-                    //str=i+"."+tozhenfenshu(a,d)+"-"+tozhenfenshu(b,e)+"+"+tozhenfenshu(c,f)+"=";
-                    str=i+". "+tofenshu(a,d)+" - "+tofenshu(b,e)+" + "+tofenshu(c,f)+" =";
-                    String x1=tofenshu(a,d);
-                    String x2=tofenshu(b,e);
-                    String x3=tofenshu(c,f);
-                    //str1=fenshutozhenfenshu(add(x1,minus(x2,x3)));
-                    str1=add(minus(x1,x2),x3);
-                    double panduan=getResult(str1);
-                    if (panduan>=0){
-                        writer.write(str);
-                        writer1.write(str1);
-                        System.out.println(str+" "+str1);
+            FileWriter fw1=new FileWriter(file1);
+            FileWriter fw2=new FileWriter(file2);
+            BufferedWriter bw1=new BufferedWriter(fw1);
+            BufferedWriter bw2=new BufferedWriter(fw2);
+            for (int i=1;i<=number;) {
+                int a = (int) (Math.random() * range);
+                int b = (int) (Math.random() * range);
+                int c = (int) (Math.random() * range);
+                int d = (int)(Math.random()*range)+1;
+                int e = (int)(Math.random()*range)+1;
+                int f = (int)(Math.random()*range)+1;
+                //int fuhao1 = (int) (Math.random() * 4);
+                //int fuhao2 = (int) (Math.random() * 4);
+                int fuhao1=0;
+                int fuhao2=0;
+                String str;
+                String str1;
+                if (fuhao1==0){
+                    if (fuhao2==0){
+                        //str=i+"."+tozhenfenshu(a,d)+"+"+tozhenfenshu(b,e)+"+"+tozhenfenshu(c,f)+"=";
+                        str=i+". "+tofenshu(a,d)+" + "+tofenshu(b,e)+" + "+tofenshu(c,f)+" =";
+
+                        String x1=tofenshu(a,d);
+                        String x2=tofenshu(b,e);
+                        String x3=tofenshu(c,f);
+                        str1=add(add(x1,x2),x3);
+                        //System.out.println(str+" "+str1);
+                        //str1=fenshutozhenfenshu(add(add(x1,x2),x3));//化为真分数
+                        //System.out.println(str1);
+                        bw1.write(str);
+                        bw2.write(str1);
+                        bw1.newLine();
+                        bw2.newLine();
+                        bw1.flush();
+                        bw2.flush();
                         i++;
                     }
-                }
-                else if (fuhao2==1){
-                    //str=i+"."+tozhenfenshu(a,d)+"-"+tozhenfenshu(b,e)+"-"+tozhenfenshu(c,f)+"=";
-                    str=i+". "+tofenshu(a,d)+" - "+tofenshu(b,e)+" - "+tofenshu(c,f)+" =";
-                    String x1=tofenshu(a,d);
-                    String x2=tofenshu(b,e);
-                    String x3=tofenshu(c,f);
-                    //str1=fenshutozhenfenshu(minus(minus(x1,x2),x3));
-                    str1=minus(minus(x1,x2),x3);
-                    double panduan=getResult(str1);
-                    if (panduan>=0){
-                        writer.write(str);
-                        writer1.write(str1);
-                        i++;
-                        System.out.println(str+" "+str1);
-                    }
-                }
-                else if (fuhao2==2){
-                    //str=i+"."+tozhenfenshu(a,d)+"-"+tozhenfenshu(b,e)+"*"+tozhenfenshu(c,f)+"=";
-                    str=i+". "+tofenshu(a,d)+" - "+tofenshu(b,e)+" * "+tofenshu(c,f)+" =";
-                    String x1=tofenshu(a,d);
-                    String x2=tofenshu(b,e);
-                    String x3=tofenshu(c,f);
-                    //str1=fenshutozhenfenshu(minus(x1,multiply(x2,x3)));
-                    str1=minus(x1,multiply(x2,x3));
-                    double panduan=getResult(str1);
-                    if (panduan>=0){
-                        writer.write(str);
-                        writer1.write(str1);
-                        i++;
-                        System.out.println(str+" "+str1);
-                    }
-                }
-                else if (fuhao2==3){
-                    //str=i+"."+tozhenfenshu(a,d)+"-"+tozhenfenshu(b,e)+"/"+tozhenfenshu(c,f)+"=";
-                    str=i+". "+tofenshu(a,d)+" - "+tofenshu(b,e)+" / "+tofenshu(c,f)+"= ";
-                    String x1=tofenshu(a,d);
-                    String x2=tofenshu(b,e);
-                    String x3=tofenshu(c,f);
-                    if (c!=0) {
-                        //str1 = fenshutozhenfenshu(minus(x1, divide(x2, x3)));
-                        str1=minus(x1,divide(x2,x3));
-                        double panduan = getResult(str1);
-                        if (panduan >= 0) {
-                            writer.write(str);
-                            writer1.write(str1);
+                    else if (fuhao2==1){
+                        //str=i+"."+tozhenfenshu(a,d)+"+"+tozhenfenshu(b,e)+"+"+tozhenfenshu(c,f)+"=";
+                        str=i+". "+tofenshu(a,d)+" + "+tofenshu(b,e)+" - "+tofenshu(c,f)+" =";
+                        String x1=tofenshu(a,d);
+                        String x2=tofenshu(b,e);
+                        String x3=tofenshu(c,f);
+                        //str1=fenshutozhenfenshu(minus(add(x1,x2),x3));
+                        String str2=add(x1,x2);
+                        //System.out.println(str2);
+                        str1=minus(str2,x3);
+                        //System.out.println(str1);
+                        double panduan=getResult(str1);
+                        if (panduan>=0){
+                            bw1.write(str);
+                            bw2.write(str1);
+                            bw1.newLine();
+                            bw2.newLine();
+                            bw1.flush();
+                            bw2.flush();
                             i++;
-                            System.out.println(str+" "+str1);
+                            //System.out.println(str+" "+str1);
+                        }
+                    }
+                    else if (fuhao2==2){
+                        //str=i+"."+tozhenfenshu(a,d)+"+"+tozhenfenshu(b,e)+"*"+tozhenfenshu(c,f)+"=";
+                        str=i+". "+tofenshu(a,d)+" + "+tofenshu(b,e)+" * "+tofenshu(c,f)+" =";
+                        String x1=tofenshu(a,d);
+                        String x2=tofenshu(b,e);
+                        String x3=tofenshu(c,f);
+                        //str1=fenshutozhenfenshu(add(x1,multiply(x2,x3)));
+                        str1=add(x1,multiply(x2,x3));
+                        //System.out.println(str+" "+str1);
+                        bw1.write(str);
+                        bw2.write(str1);
+                        bw1.newLine();
+                        bw2.newLine();
+                        bw1.flush();
+                        bw2.flush();
+                        i++;
+                    }
+                    else if (fuhao2==3){
+                        //str=i+"."+tozhenfenshu(a,d)+"+"+tozhenfenshu(b,e)+"/"+tozhenfenshu(c,f)+"=";
+                        str=i+". " +tofenshu(a,d)+" + "+tofenshu(b,e)+" / "+tofenshu(c,f)+" =";
+                        String x1=tofenshu(a,d);
+                        String x2=tofenshu(b,e);
+                        String x3=tofenshu(c,f);
+                        if(c!=0) {
+                            //str1=fenshutozhenfenshu(add(x1,divide(x2,x3)));
+                            str1 = add(x1, divide(x2, x3));
+                            bw1.write(str);
+                            bw2.write(str1);
+                            bw1.newLine();
+                            bw2.newLine();
+                            bw1.flush();
+                            bw2.flush();
+                            //System.out.println(str+" "+str1);
+                            i++;
                         }
                     }
                 }
-            }
-            else if (fuhao1==2){
-                if (fuhao2==0){
-                    //str=i+"."+tozhenfenshu(a,d)+"*"+tozhenfenshu(b,e)+"+"+tozhenfenshu(c,f)+"=";
-                    str=i+". "+tofenshu(a,d)+" * "+tofenshu(b,e)+" + "+tofenshu(c,f)+"= ";
-                    String x1=tofenshu(a,d);
-                    String x2=tofenshu(b,e);
-                    String x3=tofenshu(c,f);
-                    //str1=fenshutozhenfenshu(add(multiply(x1,x2),x3));
-                    str1=add(multiply(x1,x2),x3);
-                    writer.write(str);
-                    writer1.write(str1);
-                    i++;
-                    System.out.println(str+" "+str1);
-                }
-                else if (fuhao2==1){
-                    //str=i+"."+tozhenfenshu(a,d)+"*"+tozhenfenshu(b,e)+"-"+tozhenfenshu(c,f)+"=";
-                    str=i+". "+tofenshu(a,d)+" * "+tofenshu(b,e)+" - "+tofenshu(c,f)+"= ";
-                    String x1=tofenshu(a,d);
-                    String x2=tofenshu(b,e);
-                    String x3=tofenshu(c,f);
-                    //str1=fenshutozhenfenshu(minus(multiply(x1,x2),x3));
-                    str1=minus(multiply(x1,x2),x3);
-                    double panduan=getResult(str1);
-                    if (panduan>=0){
-                        writer.write(str);
-                        writer1.write(str1);
-                        i++;
-                        System.out.println(str+" "+str1);
-                    }
-                }
-                else if (fuhao2==2){
-                    //str=i+"."+tozhenfenshu(a,d)+"*"+tozhenfenshu(b,e)+"*"+tozhenfenshu(c,f)+"=";
-                    str=i+". "+tofenshu(a,d)+" * "+tofenshu(b,e)+" * "+tofenshu(c,f)+"= ";
-                    String x1=tofenshu(a,d);
-                    String x2=tofenshu(b,e);
-                    String x3=tofenshu(c,f);
-                    //str1=fenshutozhenfenshu(multiply(multiply(x1,x2),x3));
-                    str1=multiply(multiply(x1,x2),x3);
-                    writer.write(str);
-                    writer1.write(str1);
-                    i++;
-                    System.out.println(str+" "+str1);
-                }
-                else if (fuhao2==3) {
-                    //str = i + "." + tozhenfenshu(a, d) + "*" + tozhenfenshu(b, e) + "/" + tozhenfenshu(c, f) + "=";
-                    str=i+". "+tofenshu(a,d)+" * "+tofenshu(b,e)+" / "+tofenshu(c,f)+"= ";
-                    String x1 = tofenshu(a, d);
-                    String x2 = tofenshu(b, e);
-                    String x3 = tofenshu(c, f);
-                    if (c!=0) {
-                        //str1 = fenshutozhenfenshu(divide(multiply(x1, x2), x3));
-                        str1=divide(multiply(x1,x2),x3);
-                        writer.write(str);
-                        writer1.write(str1);
-                        i++;
-                        System.out.println(str+" "+str1);
-                    }
-                }
-            }
-            else if (fuhao1==3) {
-                if (b != 0) {
-                    if (fuhao2 == 0) {
-                        //str = i + "." + tozhenfenshu(a, d) + "/" + tozhenfenshu(b, e) + "+" + tozhenfenshu(c, f) + "=";
-                        str=i+". "+tofenshu(a,d)+" / "+tofenshu(b,e)+" + "+tofenshu(c,f)+"= ";
-                        String x1 = tofenshu(a, d);
-                        String x2 = tofenshu(b, e);
-                        String x3 = tofenshu(c, f);
-                        //str1 = fenshutozhenfenshu(add(divide(x1, x2), x3));
-                        str1=add(divide(x1,x2),x3);
-                        writer.write(str);
-                        writer1.write(str1);
-                        i++;
-                        System.out.println(str+" "+str1);
-                    } else if (fuhao2 == 1) {
-                        str=i+". "+tofenshu(a,d)+" / "+tofenshu(b,e)+" - "+tofenshu(c,f)+"= ";
-                        //str = i + "." + tozhenfenshu(a, d) + "/" + tozhenfenshu(b, e) + "-" + tozhenfenshu(c, f) + "=";
-                        String x1 = tofenshu(a, d);
-                        String x2 = tofenshu(b, e);
-                        String x3 = tofenshu(c, f);
-                        str1=minus(divide(x1,x2),x3);
-//                            str1 = fenshutozhenfenshu(minus(divide(x1, x2), x3));
-                        double panduan = getResult(str1);
-                        if (panduan >= 0) {
-                            writer.write(str);
-                            writer1.write(str1);
+                else if (fuhao1==1){
+                    if (fuhao2==0){
+                        //str=i+"."+tozhenfenshu(a,d)+"-"+tozhenfenshu(b,e)+"+"+tozhenfenshu(c,f)+"=";
+                        str=i+". "+tofenshu(a,d)+" - "+tofenshu(b,e)+" + "+tofenshu(c,f)+" =";
+                        String x1=tofenshu(a,d);
+                        String x2=tofenshu(b,e);
+                        String x3=tofenshu(c,f);
+                        //str1=fenshutozhenfenshu(add(x1,minus(x2,x3)));
+                        str1=add(minus(x1,x2),x3);
+                        double panduan=getResult(str1);
+                        if (panduan>=0){
+                            bw1.write(str);
+                            bw2.write(str1);
+                            bw1.newLine();
+                            bw2.newLine();
+                            bw1.flush();
+                            bw2.flush();
+                            //System.out.println(str+" "+str1);
                             i++;
-                            System.out.println(str+" "+str1);
                         }
                     }
-                    else if (fuhao2 == 2) {
-//                        str = i + "." + tozhenfenshu(a, d) + "/" + tozhenfenshu(b, e) + "*" + tozhenfenshu(c, f) + "=";
-                        str=i+". "+tofenshu(a,d)+" / "+tofenshu(b,e)+" * "+tofenshu(c,f)+"= ";
-                        String x1 = tofenshu(a, d);
-                        String x2 = tofenshu(b, e);
-                        String x3 = tofenshu(c, f);
-                        //str1 = fenshutozhenfenshu(multiply(divide(x1, x2), x3));
-                        str1=multiply(divide(x1,x2),x3);
-                        writer.write(str);
-                        writer1.write(str1);
+                    else if (fuhao2==1){
+                        //str=i+"."+tozhenfenshu(a,d)+"-"+tozhenfenshu(b,e)+"-"+tozhenfenshu(c,f)+"=";
+                        str=i+". "+tofenshu(a,d)+" - "+tofenshu(b,e)+" - "+tofenshu(c,f)+" =";
+                        String x1=tofenshu(a,d);
+                        String x2=tofenshu(b,e);
+                        String x3=tofenshu(c,f);
+                        //str1=fenshutozhenfenshu(minus(minus(x1,x2),x3));
+                        str1=minus(minus(x1,x2),x3);
+                        double panduan=getResult(str1);
+                        if (panduan>=0){
+                            bw1.write(str);
+                            bw2.write(str1);
+                            bw1.newLine();
+                            bw2.newLine();
+                            bw1.flush();
+                            bw2.flush();
+                            i++;
+                            //System.out.println(str+" "+str1);
+                        }
+                    }
+                    else if (fuhao2==2){
+                        //str=i+"."+tozhenfenshu(a,d)+"-"+tozhenfenshu(b,e)+"*"+tozhenfenshu(c,f)+"=";
+                        str=i+". "+tofenshu(a,d)+" - "+tofenshu(b,e)+" * "+tofenshu(c,f)+" =";
+                        String x1=tofenshu(a,d);
+                        String x2=tofenshu(b,e);
+                        String x3=tofenshu(c,f);
+                        //str1=fenshutozhenfenshu(minus(x1,multiply(x2,x3)));
+                        str1=minus(x1,multiply(x2,x3));
+                        double panduan=getResult(str1);
+                        if (panduan>=0){
+                            bw1.write(str);
+                            bw2.write(str1);
+                            bw1.newLine();
+                            bw2.newLine();
+                            bw1.flush();
+                            bw2.flush();
+                            i++;
+                            //System.out.println(str+" "+str1);
+                        }
+                    }
+                    else if (fuhao2==3){
+                        //str=i+"."+tozhenfenshu(a,d)+"-"+tozhenfenshu(b,e)+"/"+tozhenfenshu(c,f)+"=";
+                        str=i+". "+tofenshu(a,d)+" - "+tofenshu(b,e)+" / "+tofenshu(c,f)+"= ";
+                        String x1=tofenshu(a,d);
+                        String x2=tofenshu(b,e);
+                        String x3=tofenshu(c,f);
+                        if (c!=0) {
+                            //str1 = fenshutozhenfenshu(minus(x1, divide(x2, x3)));
+                            str1=minus(x1,divide(x2,x3));
+                            double panduan = getResult(str1);
+                            if (panduan >= 0) {
+                                bw1.write(str);
+                                bw2.write(str1);
+                                bw1.newLine();
+                                bw2.newLine();
+                                bw1.flush();
+                                bw2.flush();
+                                i++;
+                                //System.out.println(str+" "+str1);
+                            }
+                        }
+                    }
+                }
+                else if (fuhao1==2){
+                    if (fuhao2==0){
+                        //str=i+"."+tozhenfenshu(a,d)+"*"+tozhenfenshu(b,e)+"+"+tozhenfenshu(c,f)+"=";
+                        str=i+". "+tofenshu(a,d)+" * "+tofenshu(b,e)+" + "+tofenshu(c,f)+"= ";
+                        String x1=tofenshu(a,d);
+                        String x2=tofenshu(b,e);
+                        String x3=tofenshu(c,f);
+                        //str1=fenshutozhenfenshu(add(multiply(x1,x2),x3));
+                        str1=add(multiply(x1,x2),x3);
+                        bw1.write(str);
+                        bw2.write(str1);
+                        bw1.newLine();
+                        bw2.newLine();
+                        bw1.flush();
+                        bw2.flush();
                         i++;
-                        System.out.println(str+" "+str1);
-                    } else if (fuhao2 == 3) {
-                        str=i+". "+ tofenshu(a,d)+" / "+tofenshu(b,e)+" / "+tofenshu(c,f)+"= ";
-                        //str = i + "." + tozhenfenshu(a, d) + "/" + tozhenfenshu(b, e) + "/" + tozhenfenshu(c, f) + "=";
+                        //System.out.println(str+" "+str1);
+                    }
+                    else if (fuhao2==1){
+                        //str=i+"."+tozhenfenshu(a,d)+"*"+tozhenfenshu(b,e)+"-"+tozhenfenshu(c,f)+"=";
+                        str=i+". "+tofenshu(a,d)+" * "+tofenshu(b,e)+" - "+tofenshu(c,f)+"= ";
+                        String x1=tofenshu(a,d);
+                        String x2=tofenshu(b,e);
+                        String x3=tofenshu(c,f);
+                        //str1=fenshutozhenfenshu(minus(multiply(x1,x2),x3));
+                        str1=minus(multiply(x1,x2),x3);
+                        double panduan=getResult(str1);
+                        if (panduan>=0){
+                            bw1.write(str);
+                            bw2.write(str1);
+                            bw1.newLine();
+                            bw2.newLine();
+                            bw1.flush();
+                            bw2.flush();
+                            i++;
+                            //System.out.println(str+" "+str1);
+                        }
+                    }
+                    else if (fuhao2==2){
+                        //str=i+"."+tozhenfenshu(a,d)+"*"+tozhenfenshu(b,e)+"*"+tozhenfenshu(c,f)+"=";
+                        str=i+". "+tofenshu(a,d)+" * "+tofenshu(b,e)+" * "+tofenshu(c,f)+"= ";
+                        String x1=tofenshu(a,d);
+                        String x2=tofenshu(b,e);
+                        String x3=tofenshu(c,f);
+                        //str1=fenshutozhenfenshu(multiply(multiply(x1,x2),x3));
+                        str1=multiply(multiply(x1,x2),x3);
+                        bw1.write(str);
+                        bw2.write(str1);
+                        bw1.newLine();
+                        bw2.newLine();
+                        bw1.flush();
+                        bw2.flush();
+                        i++;
+                        //System.out.println(str+" "+str1);
+                    }
+                    else if (fuhao2==3) {
+                        //str = i + "." + tozhenfenshu(a, d) + "*" + tozhenfenshu(b, e) + "/" + tozhenfenshu(c, f) + "=";
+                        str=i+". "+tofenshu(a,d)+" * "+tofenshu(b,e)+" / "+tofenshu(c,f)+"= ";
                         String x1 = tofenshu(a, d);
                         String x2 = tofenshu(b, e);
                         String x3 = tofenshu(c, f);
                         if (c!=0) {
-                            str1=divide(divide(x1,x2),x3);
-                            //str1 = fenshutozhenfenshu(divide(divide(x1, x2), x3));
-                            writer.write(str);
-                            writer1.write(str1);
+                            //str1 = fenshutozhenfenshu(divide(multiply(x1, x2), x3));
+                            str1=divide(multiply(x1,x2),x3);
+                            bw1.write(str);
+                            bw2.write(str1);
+                            bw1.newLine();
+                            bw2.newLine();
+                            bw1.flush();
+                            bw2.flush();
                             i++;
-                            System.out.println(str+" "+str1);
+                            //System.out.println(str+" "+str1);
+                        }
+                    }
+                }
+                else if (fuhao1==3) {
+                    if (b != 0) {
+                        if (fuhao2 == 0) {
+                            //str = i + "." + tozhenfenshu(a, d) + "/" + tozhenfenshu(b, e) + "+" + tozhenfenshu(c, f) + "=";
+                            str=i+". "+tofenshu(a,d)+" / "+tofenshu(b,e)+" + "+tofenshu(c,f)+"= ";
+                            String x1 = tofenshu(a, d);
+                            String x2 = tofenshu(b, e);
+                            String x3 = tofenshu(c, f);
+                            //str1 = fenshutozhenfenshu(add(divide(x1, x2), x3));
+                            str1=add(divide(x1,x2),x3);
+                            bw1.write(str);
+                            bw2.write(str1);
+                            bw1.newLine();
+                            bw2.newLine();
+                            bw1.flush();
+                            bw2.flush();
+                            i++;
+                            //System.out.println(str+" "+str1);
+                        } else if (fuhao2 == 1) {
+                            str=i+". "+tofenshu(a,d)+" / "+tofenshu(b,e)+" - "+tofenshu(c,f)+"= ";
+                            //str = i + "." + tozhenfenshu(a, d) + "/" + tozhenfenshu(b, e) + "-" + tozhenfenshu(c, f) + "=";
+                            String x1 = tofenshu(a, d);
+                            String x2 = tofenshu(b, e);
+                            String x3 = tofenshu(c, f);
+                            str1=minus(divide(x1,x2),x3);
+//                            str1 = fenshutozhenfenshu(minus(divide(x1, x2), x3));
+                            double panduan = getResult(str1);
+                            if (panduan >= 0) {
+                                bw1.write(str);
+                                bw2.write(str1);
+                                bw1.newLine();
+                                bw2.newLine();
+                                bw1.flush();
+                                bw2.flush();
+                                i++;
+                                //System.out.println(str+" "+str1);
+                            }
+                        }
+                        else if (fuhao2 == 2) {
+//                        str = i + "." + tozhenfenshu(a, d) + "/" + tozhenfenshu(b, e) + "*" + tozhenfenshu(c, f) + "=";
+                            str=i+". "+tofenshu(a,d)+" / "+tofenshu(b,e)+" * "+tofenshu(c,f)+"= ";
+                            String x1 = tofenshu(a, d);
+                            String x2 = tofenshu(b, e);
+                            String x3 = tofenshu(c, f);
+                            //str1 = fenshutozhenfenshu(multiply(divide(x1, x2), x3));
+                            str1=multiply(divide(x1,x2),x3);
+                            bw1.write(str);
+                            bw2.write(str1);
+                            bw1.newLine();
+                            bw2.newLine();
+                            bw1.flush();
+                            bw2.flush();
+                            i++;
+                            //System.out.println(str+" "+str1);
+                        } else if (fuhao2 == 3) {
+                            str=i+". "+ tofenshu(a,d)+" / "+tofenshu(b,e)+" / "+tofenshu(c,f)+"= ";
+                            //str = i + "." + tozhenfenshu(a, d) + "/" + tozhenfenshu(b, e) + "/" + tozhenfenshu(c, f) + "=";
+                            String x1 = tofenshu(a, d);
+                            String x2 = tofenshu(b, e);
+                            String x3 = tofenshu(c, f);
+                            if (c!=0) {
+                                str1=divide(divide(x1,x2),x3);
+                                //str1 = fenshutozhenfenshu(divide(divide(x1, x2), x3));
+                                bw1.write(str);
+                                bw2.write(str1);
+                                bw1.newLine();
+                                bw2.newLine();
+                                bw1.flush();
+                                bw2.flush();
+                                i++;
+                                //System.out.println(str+" "+str1);
+                            }
                         }
                     }
                 }
             }
+            System.out.println("成功写入数据！");
+        }catch (IOException e){
+            e.printStackTrace();
         }
     }
 
@@ -492,5 +552,4 @@ public class Myapp {
             return Double.parseDouble(num);
         }
     }
-
 }
