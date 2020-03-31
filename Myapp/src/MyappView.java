@@ -2,6 +2,9 @@ package com.zhouzhou;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 public class MyappView extends JFrame {
 
@@ -9,12 +12,14 @@ public class MyappView extends JFrame {
     JPanel jp1, jp2, jp3;
     JLabel jlb1, jlb2;
     JButton jb1, jb2;
-    JTextField jtf1;
+    JTextField jtf1,jtf2;
     JPasswordField jpf1;
+
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         MyappView d1 = new MyappView();
+
 
     }
 
@@ -33,7 +38,9 @@ public class MyappView extends JFrame {
 
         jtf1 = new JTextField(10);
 
-        jpf1 = new JPasswordField(10);// 设置布局管理(上面忘记：extends JFrame，这里出错了)
+        jtf2 = new JTextField(10);
+
+//        jpf1 = new JPasswordField(10);// 设置布局管理(上面忘记：extends JFrame，这里出错了)
         this.setLayout(new GridLayout(3, 1));
 
         // 加入各个组件
@@ -41,7 +48,7 @@ public class MyappView extends JFrame {
         jp1.add(jtf1);
 
         jp2.add(jlb2);
-        jp2.add(jpf1);
+        jp2.add(jtf2);
 
         jp3.add(jb1);
         jp3.add(jb2);
@@ -51,9 +58,22 @@ public class MyappView extends JFrame {
         this.add(jp2);
         this.add(jp3);
 
-        this.setSize(250, 150);
+        this.setSize(450, 350);
         this.setTitle("算术生成器");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+
+        jb1.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent arg0) {
+
+
+                System.out.printf("题目数量：%s", jtf1.getText());
+                System.out.printf("题目范围：%s", jtf2.getText());
+
+                
+
+
+            }
+        });
     }
 }
