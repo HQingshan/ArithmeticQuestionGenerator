@@ -13,7 +13,7 @@ public class Myapp {
         int range=sc.nextInt();
         System.out.println("输入1为生成题目，输入0为判断答案");
         int bijiao=sc.nextInt();
-        if (bijiao==0) {
+        if (bijiao==1) {
             GenerateQuestion(range, num);
         }
         else {
