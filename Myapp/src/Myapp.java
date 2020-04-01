@@ -1,95 +1,26 @@
-package com.zhouzhou;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+public class Myapp {
+    public static void main(String[] args) throws Exception{
+        Scanner sc=new Scanner(System.in);
+        System.out.println("输入生成题目的个数:\t-n number");
+        int num=sc.nextInt();
+        System.out.println("输入生成题目中数值的 范围\t-r number");
+        int range=sc.nextInt();
+        System.out.println("输入1为生成题目，输入0为判断答案");
+        int bijiao=sc.nextInt();
+        if (bijiao==0) {
+            GenerateQuestion(range, num);
+        }
+        else {
+            CorrectAnswer("Exercise.txt","Answer.txt",num);
+        }
 
-
-public class MyappView extends JFrame {
-
-    // 定义组件
-    JPanel jp1, jp2, jp3;
-    JLabel jlb1, jlb2;
-    JButton jb1, jb2;
-    JTextField jtf1,jtf2;
-    JPasswordField jpf1;
-
-
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-        MyappView d1 = new MyappView();
-
-
-
-    }
-
-    // 构造函数
-    public MyappView() {
-
-        jp1 = new JPanel();
-        jp2 = new JPanel();
-        jp3 = new JPanel();
-
-        jlb1 = new JLabel("输入生成题目的个数");
-        jlb2 = new JLabel("输入生成题目数值范围");
-
-        jb1 = new JButton("确定");
-        jb2 = new JButton("取消");
-
-        jtf1 = new JTextField(10);
-
-        jtf2 = new JTextField(10);
-
-//        jpf1 = new JPasswordField(10);// 设置布局管理(上面忘记：extends JFrame，这里出错了)
-        this.setLayout(new GridLayout(3, 1));
-
-        // 加入各个组件
-        jp1.add(jlb1);
-        jp1.add(jtf1);
-
-        jp2.add(jlb2);
-        jp2.add(jtf2);
-
-        jp3.add(jb1);
-        jp3.add(jb2);
-
-        // 加入到JFrame
-        this.add(jp1);
-        this.add(jp2);
-        this.add(jp3);
-
-        this.setSize(450, 350);
-        this.setTitle("算术生成器");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
-
-        jb1.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent arg0) {
-
-
-                System.out.printf("题目数量：%s", jtf1.getText());
-                System.out.printf("题目范围：%s", jtf2.getText());
-
-                int range =Integer.parseInt(jtf1.getText());
-                int num   = Integer.parseInt(jtf2.getText());
-                try {
-                    GenerateQuestion(num,range);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        });
+        //CorrectAnswer("Exercise.txt","Answer.txt",10);
     }
 
     public static void GenerateQuestion (int range,int number) throws IOException {
@@ -126,7 +57,7 @@ public class MyappView extends JFrame {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=add(add(x1,x2),x3);
-                        str2=i+"."+fenshutozhenfenshu(add(add(x1,x2),x3));
+                        str2=i+". "+fenshutozhenfenshu(add(add(x1,x2),x3));
                         bw1.write(str);
                         bw2.write(str2);
                         bw1.newLine();
@@ -142,7 +73,7 @@ public class MyappView extends JFrame {
                         String x3=tofenshu(c,f);
                         //str1=fenshutozhenfenshu(minus(add(x1,x2),x3));
                         str1=minus(add(x1,x2),x3);
-                        str2=i+"."+fenshutozhenfenshu(minus(add(x1,x2),x3));
+                        str2=i+". "+fenshutozhenfenshu(minus(add(x1,x2),x3));
                         double panduan=getResult(str1);
                         if (panduan>=0){
                             bw1.write(str);
@@ -160,7 +91,7 @@ public class MyappView extends JFrame {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=add(x1,multiply(x2,x3));
-                        str2=i+"."+fenshutozhenfenshu(add(x1,multiply(x2,x3)));
+                        str2=i+". "+fenshutozhenfenshu(add(x1,multiply(x2,x3)));
                         bw1.write(str);
                         bw2.write(str2);
                         bw1.newLine();
@@ -176,7 +107,7 @@ public class MyappView extends JFrame {
                         String x3=tofenshu(c,f);
                         if(c!=0) {
                             str1=add(x1, divide(x2, x3));
-                            str2 = i+"."+fenshutozhenfenshu(add(x1, divide(x2, x3)));
+                            str2 = i+". "+fenshutozhenfenshu(add(x1, divide(x2, x3)));
                             bw1.write(str);
                             bw2.write(str2);
                             bw1.newLine();
@@ -194,7 +125,7 @@ public class MyappView extends JFrame {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=add(minus(x1,x2),x3);
-                        str2=i+"."+fenshutozhenfenshu(add(minus(x1,x2),x3));
+                        str2=i+". "+fenshutozhenfenshu(add(minus(x1,x2),x3));
                         double panduan=getResult(str1);
                         if (panduan>=0){
                             bw1.write(str);
@@ -213,8 +144,13 @@ public class MyappView extends JFrame {
                         String x1=tofenshu(a,d);
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
-                        str1=minus(minus(x1,x2),x3);
-                        str2=i+"."+fenshutozhenfenshu(minus(minus(x1,x2),x3));
+                        if (fenshutozhenfenshu(x3).equals("0")){
+                            str1=minus(x1,x2);
+                        }
+                        else {
+                            str1 = minus(minus(x1, x2), x3);
+                        }
+                        str2=i+". "+fenshutozhenfenshu(minus(minus(x1,x2),x3));
                         double panduan=getResult(str1);
                         if (panduan>=0){
                             bw1.write(str);
@@ -232,7 +168,7 @@ public class MyappView extends JFrame {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=minus(x1,multiply(x2,x3));
-                        str2=i+"."+fenshutozhenfenshu(minus(x1,multiply(x2,x3)));
+                        str2=i+". "+fenshutozhenfenshu(minus(x1,multiply(x2,x3)));
                         double panduan=getResult(str1);
                         if (panduan>=0){
                             bw1.write(str);
@@ -252,7 +188,7 @@ public class MyappView extends JFrame {
                         String x3=tofenshu(c,f);
                         if (c!=0) {
                             str1=minus(x1,divide(x2,x3));
-                            str2=i+"."+fenshutozhenfenshu(minus(x1,divide(x2,x3)));
+                            str2=i+". "+fenshutozhenfenshu(minus(x1,divide(x2,x3)));
                             double panduan = getResult(str1);
                             if (panduan >= 0) {
                                 bw1.write(str);
@@ -274,7 +210,7 @@ public class MyappView extends JFrame {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=add(multiply(x1,x2),x3);
-                        str2=i+"."+fenshutozhenfenshu(add(multiply(x1,x2),x3));
+                        str2=i+". "+fenshutozhenfenshu(add(multiply(x1,x2),x3));
                         bw1.write(str);
                         bw2.write(str2);
                         bw1.newLine();
@@ -289,7 +225,7 @@ public class MyappView extends JFrame {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=minus(multiply(x1,x2),x3);
-                        str2=i+"."+fenshutozhenfenshu(minus(multiply(x1,x2),x3));
+                        str2=i+". "+fenshutozhenfenshu(minus(multiply(x1,x2),x3));
                         double panduan=getResult(str1);
                         if (panduan>=0){
                             bw1.write(str);
@@ -308,7 +244,7 @@ public class MyappView extends JFrame {
                         String x2=tofenshu(b,e);
                         String x3=tofenshu(c,f);
                         str1=multiply(multiply(x1,x2),x3);
-                        str2=i+"."+fenshutozhenfenshu(multiply(multiply(x1,x2),x3));
+                        str2=i+". "+fenshutozhenfenshu(multiply(multiply(x1,x2),x3));
                         bw1.write(str);
                         bw2.write(str2);
                         bw1.newLine();
@@ -324,7 +260,7 @@ public class MyappView extends JFrame {
                         String x3 = tofenshu(c, f);
                         if (c!=0) {
                             str1=divide(multiply(x1,x2),x3);
-                            str2=i+"."+fenshutozhenfenshu(divide(multiply(x1,x2),x3));
+                            str2=i+". "+fenshutozhenfenshu(divide(multiply(x1,x2),x3));
                             bw1.write(str);
                             bw2.write(str2);
                             bw1.newLine();
@@ -343,7 +279,7 @@ public class MyappView extends JFrame {
                             String x2 = tofenshu(b, e);
                             String x3 = tofenshu(c, f);
                             str1=add(divide(x1,x2),x3);
-                            str2=i+"."+fenshutozhenfenshu(add(divide(x1,x2),x3));
+                            str2=i+". "+fenshutozhenfenshu(add(divide(x1,x2),x3));
                             bw1.write(str);
                             bw2.write(str2);
                             bw1.newLine();
@@ -357,7 +293,7 @@ public class MyappView extends JFrame {
                             String x2 = tofenshu(b, e);
                             String x3 = tofenshu(c, f);
                             str1=minus(divide(x1,x2),x3);
-                            str2=i+"."+fenshutozhenfenshu(minus(divide(x1,x2),x3));
+                            str2=i+". "+fenshutozhenfenshu(minus(divide(x1,x2),x3));
                             double panduan = getResult(str1);
                             if (panduan >= 0) {
                                 bw1.write(str);
@@ -375,7 +311,7 @@ public class MyappView extends JFrame {
                             String x2 = tofenshu(b, e);
                             String x3 = tofenshu(c, f);
                             str1=multiply(divide(x1,x2),x3);
-                            str2=i+"."+fenshutozhenfenshu(multiply(divide(x1,x2),x3));
+                            str2=i+". "+fenshutozhenfenshu(multiply(divide(x1,x2),x3));
                             bw1.write(str);
                             bw2.write(str2);
                             bw1.newLine();
@@ -390,7 +326,7 @@ public class MyappView extends JFrame {
                             String x3 = tofenshu(c, f);
                             if (c!=0) {
                                 str1=divide(divide(x1,x2),x3);
-                                str2=i+"."+fenshutozhenfenshu(divide(divide(x1,x2),x3));
+                                str2=i+". "+fenshutozhenfenshu(divide(divide(x1,x2),x3));
                                 bw1.write(str);
                                 bw2.write(str2);
                                 bw1.newLine();
@@ -413,7 +349,7 @@ public class MyappView extends JFrame {
     public static String add(String str1,String str2){  //加法
         int a[]=new int[4];
         //String b[]=new String[4];
-        java.util.List<String> c=new ArrayList<>();
+        List<String> c=new ArrayList<>();
         //ArrayList<Integer> c = new ArrayList<Integer>();
         Matcher m = Pattern.compile("\\d+").matcher(str1);
         while(m.find()) {
@@ -445,7 +381,7 @@ public class MyappView extends JFrame {
 
     public static String minus(String str1,String str2){        //减法
         int a[]=new int[4];
-        java.util.List<String> c=new ArrayList<>();
+        List<String> c=new ArrayList<>();
         Matcher m=Pattern.compile("\\d+").matcher(str1);
         while (m.find()){
             c.add(m.group());
@@ -478,7 +414,7 @@ public class MyappView extends JFrame {
 
     public static String multiply(String str1,String str2){     //乘法
         int a[]=new int[4];
-        java.util.List<String> c=new ArrayList<>();
+        List<String> c=new ArrayList<>();
         Matcher m=Pattern.compile("\\d+").matcher(str1);
         while (m.find()){
             c.add(m.group());
@@ -508,7 +444,7 @@ public class MyappView extends JFrame {
     public static String divide(String str1,String str2){       //除法
         int a[]=new int[4];
         String b[]=new String[4];
-        java.util.List<String> c=new ArrayList<>();
+        List<String> c=new ArrayList<>();
         Matcher m=Pattern.compile("\\d+").matcher(str1);
         while (m.find()){
             c.add(m.group());
@@ -586,6 +522,45 @@ public class MyappView extends JFrame {
             return Double.parseDouble(str[0]) /Double.parseDouble(str[1]);
         }else {
             return Double.parseDouble(num);
+        }
+    }
+
+    public static void CorrectAnswer(String PathA,String PathB,int num) throws IOException {
+        String []RightCount=new String[num+2];
+        String []WrongCount=new String[num+2];
+        int i=0,j=0;
+        String line1=null;
+        String line2=null;
+        BufferedReader br3=new BufferedReader(new InputStreamReader(new FileInputStream(PathA)));
+        BufferedReader br4=new BufferedReader(new InputStreamReader(new FileInputStream(PathB)));
+        while (((line1=br3.readLine())!=null)&&((line2=br4.readLine())!=null)){
+            Matcher m1=Pattern.compile("\\S+$").matcher(line1);
+            Matcher m2=Pattern.compile("\\S+$").matcher(line2);
+            Matcher m3=Pattern.compile("^\\d+").matcher(line1);
+            if (m3.find()) {
+                if (m1.find() && m2.find()) {
+                    if (m1.group().equals(m2.group())) {
+                        RightCount[i]=m3.group();
+                        i=i+1;
+                    }
+                    else {
+                        WrongCount[j]=m3.group();
+                        j=j+1;
+                    }
+                }
+            }
+
+        }
+        System.out.println("RightCount:"+i);
+        System.out.println("WrongCount:"+j);
+        System.out.println("Right:");
+        for (int x=0;x<i;x++){
+            System.out.print(RightCount[x]+",");
+        }
+        System.out.println(" ");
+        System.out.println("Wrong:");
+        for (int x=0;x<j;x++){
+            System.out.print(WrongCount[x]+",");
         }
     }
 }
